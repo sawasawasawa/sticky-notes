@@ -1,38 +1,71 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { Stage, Layer, Star, Text } from 'react-konva';
+import {StickyNote} from "./components/Note";
 
-function generateShapes() {
-  return [...Array(10)].map((_, i) => ({
-    id: i.toString(),
-    x: Math.random() * window.innerWidth,
+
+function generateNote(note?: Omit<Note, any>):  Note {
+  return {
+    id:Math.random().toString(),
+    x: Math.random()/2 * window.innerWidth,
     y: Math.random() * window.innerHeight,
-    rotation: Math.random() * 180,
     isDragging: false,
-  }));
+      text: "Double click to edit text",
+      ...note
+  };
 }
 
-const INITIAL_STATE = generateShapes();
+type Note = {
+    id: string,
+    x: number,
+    y: number,
+    text: string,
+    isDragging: boolean,
+}
+
+const INITIAL_STATE: Note[] = [
+    generateNote({
+        text: "Double click to edit text",
+        x: 150,
+        y: 50
+    }),    generateNote({
+        text: "Drag a note to place it at a different location.",
+        x: 320,
+        y: 50
+    }),    generateNote({
+        text: "You go it.",
+        x: 490,
+        y: 50
+    }),
+];
 
 const App = () => {
-  const [stars, setStars] = React.useState(INITIAL_STATE);
-
-  const handleDragStart = (e) => {
+  const [notes, setNotes] = React.useState(INITIAL_STATE);
+    const addNote = () => setNotes(s=>[...s, generateNote()])
+    const removeAll = () => setNotes([])
+    const deleteNote = (noteId: string) => setNotes(notes =>notes.filter(n=>n.id !== noteId))
+    const updateNote = (noteId: string) => (payload: Omit<Note, "id">) => {
+        console.log("_______ noteId, payload", noteId, payload)
+        setNotes(notes => notes.map(n => {
+            console.log("_______ n.id !== noteId, n.id ,noteId", n.id != noteId, n.id ,noteId)
+            return (n.id != noteId ? n : {...n, text: payload});
+        }));
+    }
+    const handleDragStart = (e) => {
     const id = e.target.id();
-    setStars(
-        stars.map((star) => {
+    setNotes(
+        notes.map((note) => {
           return {
-            ...star,
-            isDragging: star.id === id,
+            ...note,
+            isDragging: note.id === id,
           };
         })
     );
   };
   const handleDragEnd = (e) => {
-    setStars(
-        stars.map((star) => {
+    setNotes(
+        notes.map((note) => {
           return {
-            ...star,
+            ...note,
             isDragging: false,
           };
         })
@@ -42,31 +75,40 @@ const App = () => {
   return (
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
-          <Text text="Try to drag a star" />
-          {stars.map((star) => (
-              <Star
-                  key={star.id}
-                  id={star.id}
-                  x={star.x}
-                  y={star.y}
-                  numPoints={5}
-                  innerRadius={20}
-                  outerRadius={40}
-                  fill="#89b717"
-                  opacity={0.8}
-                  draggable
-                  rotation={star.rotation}
-                  shadowColor="black"
-                  shadowBlur={10}
-                  shadowOpacity={0.6}
-                  shadowOffsetX={star.isDragging ? 10 : 5}
-                  shadowOffsetY={star.isDragging ? 10 : 5}
-                  scaleX={star.isDragging ? 1.2 : 1}
-                  scaleY={star.isDragging ? 1.2 : 1}
-                  onDragStart={handleDragStart}
-                  onDragEnd={handleDragEnd}
+          {notes.map((n) => (
+              <StickyNote
+                  key={n.id}
+                  id={n.id}
+              colour={"yellow"}
+              text={n.text}
+              x={n.x}
+              y={n.y}
+              width={100}
+              height={100}
+              // onClick={() => console.log('_____ onClick')}
+              onTextResize={() => console.log('_____ onTextResize')}
+              onTextChange={updateNote(n.id)}
+              selected={'selected'}
+              onTextClick={() => console.log('_____ onTextClick')}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+                  deleteNote={() => deleteNote(n.id)}
               />
           ))}
+            <Text
+                onClick={addNote}
+                text={"+"}
+            fontSize={199}
+            // padding={50}
+            />
+
+            <Text
+                onClick={removeAll}
+                text={"RESET"}
+            fontSize={100}
+                x={window.innerWidth - 350}
+                y={window.innerHeight - 100}
+            />
         </Layer>
       </Stage>
   );

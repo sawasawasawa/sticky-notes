@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "konva": "^8.3.0",
+    "prettier": "^2.4.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-konva": "^17.0.2-5"
+    "react-konva": "^17.0.2-5",
+    "react-konva-utils": "^0.2.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
