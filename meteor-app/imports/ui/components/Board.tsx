@@ -11,10 +11,10 @@ import {
   noteWidth,
   width,
 } from "../utils";
-import { BoardsCollection } from "../../api/boards";
 import { Lines } from "./Lines";
 import { Notes } from "./Notes";
-import { Controls } from "../Controls";
+import { Controls } from "./Controls";
+import useDebounce from "../useDebounce";
 
 type InputStateType = {
   x: number;
@@ -22,7 +22,7 @@ type InputStateType = {
   id: string;
 };
 
-export const Board = ({ board }) => {
+export const Board = ({ board, upsert }) => {
   const [notes, setNotes] = React.useState(board.notes);
   const [colorpicker, setColorpicker] = useState<InputStateType | null>(null);
   const [imageInput, setImageInput] = useState<InputStateType | null>(null);
@@ -30,9 +30,11 @@ export const Board = ({ board }) => {
   const [lines, setLines] = React.useState(board.lines);
   const isDrawing = React.useRef(false);
 
+  const debouncedLines = useDebounce(lines, 300);
+
   useEffect(() => {
-    BoardsCollection.upsert({ _id: board._id }, { notes, lines });
-  }, [notes, lines]);
+    upsert({ _id: board._id }, { notes, lines });
+  }, [notes, debouncedLines]);
 
   useEffect(() => {
     setNotes(board.notes);
@@ -136,8 +138,7 @@ export const Board = ({ board }) => {
 
   return (
     <>
-      {colorpicker ? <Colorpicker {...colorpicker} /> : null}
-      {imageInput ? <Input {...imageInput} /> : null}
+      {/*// @ts-ignore*/}
       <Stage
         width={window.innerWidth}
         height={window.innerHeight}
@@ -146,6 +147,7 @@ export const Board = ({ board }) => {
         onMouseup={handleMouseUp}
         // draggable
       >
+        {/*// @ts-ignore*/}
         <Layer>
           <Lines lines={lines} />
 
@@ -161,6 +163,8 @@ export const Board = ({ board }) => {
         </Layer>
       </Stage>
       <Controls
+        colorpicker={colorpicker}
+        imageInput={imageInput}
         value={tool}
         onChange={(e) => {
           setTool(e.target.value);

@@ -1,13 +1,18 @@
-import React from "react";
+import * as React from "react";
+import { Colorpicker } from "./Colorpicker";
+import { Input } from "./Input";
 
 export function Controls(props: {
   value: any;
+  colorpicker: React.Component;
+  imageInput: React.Component;
   onChange: (e) => void;
   onClick: () => any;
   onClick1: () => void;
 }) {
+  const { colorpicker, imageInput } = props;
   return (
-    <>
+    <div>
       <select
         value={props.value}
         onChange={props.onChange}
@@ -40,6 +45,8 @@ export function Controls(props: {
       >
         RESET
       </h1>
-    </>
+      {colorpicker ? <Colorpicker {...colorpicker} /> : null}
+      {imageInput ? <Input {...imageInput} /> : null}
+    </div>
   );
 }

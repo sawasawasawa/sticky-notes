@@ -1,7 +1,0 @@
-{
-  "galaxy.meteor.com": {
-    "env": {
-      "MONGO_URL": "mongodb://koala:5jd$&xTrh$sBa9x6v@SG-stickyNotesKoala-47999.servers.mongodirector.com:27017/boards"
-    }
-  }
-}

@@ -4,7 +4,7 @@ import { width } from "../utils";
 
 export function Notes(props) {
   const {
-    notes,
+    notes = [],
     updateNote,
     onChangeColorClick,
     handleDragStart,
