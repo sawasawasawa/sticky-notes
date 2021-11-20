@@ -12,7 +12,7 @@ function getStyle(width, height, fontSize) {
     background: "none",
     outline: "none",
     resize: "none",
-    colour: "black",
+    color: "black",
     fontSize: "24px",
     fontFamily: "sans-serif",
   };
