@@ -7,8 +7,8 @@ export function Controls(props: {
   colorpicker: React.Component;
   imageInput: React.Component;
   onChange: (e) => void;
-  onClick: () => any;
-  onClick1: () => void;
+  addNote: () => any;
+  removeAll: () => void;
 }) {
   const { colorpicker, imageInput } = props;
   return (
@@ -22,12 +22,12 @@ export function Controls(props: {
         <option value="eraser">Eraser</option>
       </select>
       <h1
-        onClick={props.onClick}
+        onClick={props.addNote}
         style={{
           position: "absolute",
           left: 10,
-          top: 45,
-          fontSize: "200px",
+          top: 25,
+          fontSize: "100px",
           lineHeight: "100px",
         }}
       >
@@ -35,7 +35,7 @@ export function Controls(props: {
       </h1>
 
       <h1
-        onClick={props.onClick1}
+        onClick={props.removeAll}
         style={{
           position: "absolute",
           left: window.innerWidth - 350,

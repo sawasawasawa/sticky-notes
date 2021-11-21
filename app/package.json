@@ -7,7 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "konva": "^8.3.0",
+    "konva": "^8.2.1",
     "prettier": "^2.4.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

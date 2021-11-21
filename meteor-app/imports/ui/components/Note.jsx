@@ -41,8 +41,13 @@ export function StickyNote({
     onTextClick(!isEditing);
   }
 
-  const onMouseOver = () => setHovered(true);
-  const onMouseLeave = () => setHovered(false);
+  const onMouseOver = () => {
+    console.log("_____ hovered", id);
+    setHovered(true);
+  };
+  const onMouseLeave = () => {
+    return setTimeout(() => setHovered(false), 300);
+  };
 
   const noteWidth = width + 40;
   const noteHeight = width + 60;
@@ -63,6 +68,7 @@ export function StickyNote({
       {!isImage && (
         <>
           <Rect
+            onClick={() => console.log("_____ onclick")}
             x={20}
             y={20}
             width={width}
@@ -74,6 +80,7 @@ export function StickyNote({
             shadowBlur={30}
             shadowOpacity={0.6}
             perfectDrawEnabled={false}
+            onMouseOver={onMouseOver}
           />
           <Rect
             x={0}
@@ -82,8 +89,9 @@ export function StickyNote({
             height={noteHeight}
             fill={color}
             perfectDrawEnabled={false}
-            onClick={onClick}
-            onTap={onClick}
+            onMouseOver={onMouseOver}
+            onClick={toggleEdit}
+            onTap={toggleEdit}
           />
           <EditableText
             x={20}
@@ -91,12 +99,13 @@ export function StickyNote({
             text={imageUrl ? state : text}
             width={width}
             height={height}
-            onResize={onTextResize}
+            // onResize={onTextResize}
             isEditing={isEditing}
-            isTransforming={isTransforming}
+            // isTransforming={isTransforming}
             onToggleEdit={toggleEdit}
-            onToggleTransform={() => {}}
+            // onToggleTransform={() => {}}
             onChange={onTextChange}
+            onMouseOver={onMouseOver}
             fontSize={16}
           />
 
@@ -108,6 +117,7 @@ export function StickyNote({
             onClick={onSetImageClick}
             opacity={hovered ? 1 : 0}
             color={"red"}
+            onMouseOver={onMouseOver}
           />
           <Text
             text={"color"}
@@ -117,6 +127,7 @@ export function StickyNote({
             onClick={onChangeColorClick}
             opacity={hovered ? 1 : 0}
             fill={"red"}
+            onMouseOver={onMouseOver}
           />
         </>
       )}

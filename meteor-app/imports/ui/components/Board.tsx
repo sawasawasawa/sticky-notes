@@ -169,8 +169,8 @@ export const Board = ({ board, upsert }) => {
         onChange={(e) => {
           setTool(e.target.value);
         }}
-        onClick={addNote}
-        onClick1={removeAll}
+        addNote={addNote}
+        removeAll={removeAll}
       />
     </>
   );

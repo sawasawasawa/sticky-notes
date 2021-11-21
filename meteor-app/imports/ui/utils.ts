@@ -1,5 +1,5 @@
 import { Vector2d } from "konva/lib/types";
-
+import { v4 } from "uuid";
 export const width = 100;
 export const noteWidth = width + 40;
 export const noteHeight = width + 60;
@@ -15,9 +15,10 @@ export type Note = {
 
 export function generateNote(note?: Omit<Note, any>): Note {
   return {
-    id: Math.random().toString(),
+    // id: Math.random().toString(),
+    id: v4(),
     x: (Math.random() / 2) * 50 + 20,
-    y: (Math.random() / 2) * 50 + 150,
+    y: (Math.random() / 2) * 50 + 350,
     isDragging: false,
     color: "yellow",
     text: "Double click to edit text",
@@ -27,15 +28,13 @@ export function generateNote(note?: Omit<Note, any>): Note {
 
 export const getInitialBoardState = () => ({
   notes: getInitialState(),
-  lines: [
-
-  ],
+  lines: [],
   createdAt: new Date(),
 });
 
 export const getInitialState = () => [
   generateNote({
-    text: "Double click to edit text",
+    text: "Double click to edit text \n\n Then hit Escape to exit text edit mode.",
     x: 150,
     y: 50,
   }),

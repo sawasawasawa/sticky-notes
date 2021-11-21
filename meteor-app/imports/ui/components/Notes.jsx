@@ -12,6 +12,10 @@ export function Notes(props) {
     deleteNote,
     onSetImageClick,
   } = props;
+  console.log(
+    "_______ notes.map(n=>n.id)",
+    notes.map((n) => n.id)
+  );
   return (
     <>
       {notes.map((n) => (
