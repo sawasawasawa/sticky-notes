@@ -4,7 +4,7 @@ There are 2 versions of the application in this example repository:
 
 ## Front end app
 React app built with vite:
- [UI demo (no server - no saving or collaboration)](https://www.sawka.pro/sticky-notes/index.html)
+ [UI demo (no server - no saving or collaboration)](https://s3.amazonaws.com/www.sawka.pro/sticky-notes/index.html)
 To run this app locally `cd app && yarn && yarn dev`
 
 --- 
