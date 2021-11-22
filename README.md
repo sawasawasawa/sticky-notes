@@ -11,14 +11,10 @@ To run this app locally `cd app && yarn && yarn dev`
 
 ## Full stack app
 
-This app was bootstrapped with meteor framework which I have not used for a long time and wanted to give it a try 
-again. Unfortunately the deployed version performs really bad making it not really usable at this point - there are 
-issues with all the edit features. These could be solved, at least partially, by utilizing better infrastructure 
-than the freely available solutions.  
-Nevertheless,
-it saves the board automatically and enables 
-real-time 
-collaborattion and this could be improved to deliver these features in with acceptable performance. 
+This app was bootstrapped with meteor framework. It offers reactivity by default, which I hoped to enable easy implementation of real-time collaboration for multiple users.
+
+This meteor application creates new boards on entering the root route, saves the board automatically and enables real-time collaboration on the same boards. Currently there are issues with editing the notes, but drawing works fine ;)
+
 [Meteor app demo](
  https://sticky-notes-koala.meteorapp.com/)
 
